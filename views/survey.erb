@@ -1,0 +1,32 @@
+<h3 class="jumbotron"><%= @survey.name %></h3>
+<h4> Add a new question to this survey </h4>
+<form class="form-group" action="/change_name/<%= @survey.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <input type="text" name="new_name">
+  <button type="submit">Update Survey Name</button>
+</form>
+<form style="float:right" class="form-group" action="/delete/<%= @survey.id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit">Delete Survey</button>
+</form>
+<form class="form-group" action="/survey/<%= @survey.id %>/new_question" method="post">
+  <input type="text" name="question_text">
+  <button type="submit">Add Question</button>
+</form>
+
+<h4> Questions: </h4>
+  <ul>
+    <% @survey.questions.each() do |question| %>
+    <li><a href="/question/<%= question.id %>"><%= question.text() %></a>
+      <form method="post" action="/survey/<%= @survey.id %>/delete/<%= question.id %>">
+        <input type="hidden" name="_method" value="delete">
+        <button type="submit" class="btn-danger">Delete</button>
+      </form>
+      <form method="post" action="/survey/<%= @survey.id %>/update/<%= question.id %>">
+        <input type = 'text' name='new_question'>
+        <input type="hidden" name="_method" value="patch">
+        <button type="submit" class="btn-danger">Update Question</button>
+      </form>
+    </li>
+    <% end %>
+  </ul>

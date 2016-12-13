@@ -1,0 +1,11 @@
+<h1 class="jumbotron">Question: <%= @question.text %></h1>
+<h2>Add answers below:</h2>
+
+<form class="form_group" action="/new_answer/<%= @question.id %>" method="post">
+  <input  name="answer">
+  <button type="submit">Add Answer</button>
+</form>
+<ul><% @question.answers.each() do |answer| %>
+  <li><%= answer.name %></li>
+  <% end %>
+</ul>
